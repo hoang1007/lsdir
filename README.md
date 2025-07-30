@@ -1,36 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# lsdir — A Simple Google Drive Index
 
-## Getting Started
+> Streamlined and hacker-friendly Google Drive file explorer built with Next.js, Tailwind CSS, and the Google Drive API.
 
-First, run the development server:
+![Preview](./public/cat-walk.gif)
+
+## 🚀 Core Features
+
+- **⚡ Fast Browsing** – Server-side caching for smooth navigation.
+- **🔐 Secure Access** – Google Service Account runs on the backend; no client keys exposed.
+- **🖼️ Media Previews** – Image modals, PDF readers, and video streaming.
+- **🧩 Thumbnails** – Visual file grid powered by Google Drive thumbnails.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Next.js (App Router)**
+- **TypeScript**
+- **Tailwind CSS**
+- **Google Drive API**
+- **shadcn/ui**
+
+---
+
+## ⚙️ Getting Started
+
+### 1. Prerequisites
+
+- Create a **Google Service Account** from [Google Cloud Console](https://console.cloud.google.com/).
+- Get your **Folder ID** from the Google Drive folder URL.
+- **Share the folder** with your service account’s `service account email` (Viewer permission).
+
+---
+
+### 2. Installation
+
+```bash
+git clone https://github.com/YOUR_USERNAME/lsdir.git
+cd lsdir
+npm install
+```
+
+### 3. Environment Setup
+
+#### On macOS/Linux
+
+```bash
+base64 -w 0 /path/to/your-service-account-key.json
+```
+
+#### On Windows (PowerShell)
+
+```powershell
+[Convert]::ToBase64String([IO.File]::ReadAllBytes("/path/to/key.json"))
+```
+
+```bash
+cp .env.example .env
+```
+
+change the `.env` file to include your Google Service Account credentials and Drive folder ID.
+
+```bash
+GOOGLE_SERVICE_ACCOUNT_BASE64=<your_base64_encoded_service_account_key>
+GOOGLE_DRIVE_ROOT_FOLDER_ID=<your_google_drive_folder_id>
+```
+
+### 4. Run the Application
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open your browser to http://localhost:3000 and you should see your Google Drive folder contents displayed at http://localhost:3000/drive.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## License
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT License. See [LICENSE](LICENSE) for details.

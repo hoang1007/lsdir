@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import ThemeToggle from "@/components/themeToggle";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,8 +18,15 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "lsdir — Dead Simple Drive Index",
-  description: "Stream, preview, and access your Google Drive like a hacker. Built for minimalists.",
-  keywords: ["lsdir", "Google Drive Index", "stream Google Drive", "Next.js Drive Viewer", "open source drive indexer"],
+  description:
+    "Stream, preview, and access your Google Drive like a hacker. Built for minimalists.",
+  keywords: [
+    "lsdir",
+    "Google Drive Index",
+    "stream Google Drive",
+    "Next.js Drive Viewer",
+    "open source drive indexer",
+  ],
   authors: [{ name: "Suryakant Upadhyay" }],
   icons: {
     icon: "/favicon.ico",
@@ -32,10 +40,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${geistSans.variable} ${geistMono.variable}`}
+      suppressHydrationWarning
+    >
       <body className="antialiased">
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
           {children}
+          <ThemeToggle />
         </ThemeProvider>
       </body>
     </html>
