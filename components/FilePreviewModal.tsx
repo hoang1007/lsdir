@@ -70,16 +70,18 @@ export default function PreviewDialog({ file, onClose }: PreviewDialogProps) {
           </span>
 
           <div className="flex gap-2">
-            <Button variant="outline" asChild>
-              <a
-                href={`/api/download/${file.id}`}
-                download
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Download
-              </a>
-            </Button>
+            {file.webContentLink && (
+              <Button variant="outline" asChild>
+                <a
+                  href={file.webContentLink}
+                  download
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Download
+                </a>
+              </Button>
+            )}
             <DialogClose asChild>
               <Button onClick={onClose}>Close</Button>
             </DialogClose>

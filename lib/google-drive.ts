@@ -24,16 +24,16 @@ function getGoogleAuth() {
   const keyJson = Buffer.from(base64Key, "base64").toString("utf8");
   const credentials = JSON.parse(keyJson);
 
-  const auth = new google.auth.GoogleAuth({
-    credentials,
-    scopes: ['https://www.googleapis.com/auth/drive.readonly'],
-  })
+  const auth = new JWT({
+    email: credentials.client_email,
+    key: credentials.private_key,
+    scopes: ["https://www.googleapis.com/auth/drive.readonly"],
+  });
 
   return auth;
 }
 
-const auth = getGoogleAuth();
-export const drive = google.drive({ version: "v3", auth });
+export const drive = google.drive({ version: "v3", auth: getGoogleAuth() });
 
 /**
  * A cached function to fetch files from a specific Google Drive folder.
@@ -116,29 +116,3 @@ export const getFolderPath = unstable_cache(
     tags: ["drive-collection"],
   }
 );
-
-export const getDownloadLink = async (fileId: string) => {
-  const token = await auth.getAccessToken();
-
-  const metaUrl = `https://www.googleapis.com/drive/v3/files/${fileId}?fields=name,size,mimeType,capabilities&supportsAllDrives=true`;
-  const metaResp = await fetch(metaUrl, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  if (!metaResp.ok) {
-    throw new Error("Failed to fetch file metadata");
-  }
-  const metadata = await metaResp.json();
-  const filename = metadata.name || fileId;
-
-  const driveUrl = `https://www.googleapis.com/drive/v3/files/${fileId}?alt=media&supportsAllDrives=true`;
-  const forwardHeaders: Record<string, string> = {
-    Authorization: `Bearer ${token}`,
-  };
-
-  return {
-    url: driveUrl,
-    headers: forwardHeaders,
-    filename,
-    mimeType: metadata.mimeType || "application/octet-stream",
-  };
-};
