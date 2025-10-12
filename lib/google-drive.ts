@@ -11,6 +11,7 @@ export interface GoogleDriveFile {
   webViewLink: string | null;
   webContentLink: string | null;
   thumbnailLink: string | null;
+  modifiedTime?: string;
 }
 
 function getGoogleAuth() {
@@ -46,7 +47,7 @@ export const getFiles = unstable_cache(
       const res = await drive.files.list({
         q: `'${folderId}' in parents and trashed = false`,
         fields:
-          "files(id, size, name, mimeType, webViewLink, webContentLink, thumbnailLink)",
+          "files(id, size, name, mimeType, webViewLink, webContentLink, thumbnailLink, modifiedTime)",
         orderBy: "folder, name",
       });
 
