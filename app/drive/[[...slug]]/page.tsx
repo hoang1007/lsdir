@@ -21,7 +21,7 @@ export default async function DrivePage({ params }: DrivePageProps) {
   ]);
 
   return (
-    <div className="container mx-auto p-4 sm:p-6 bg-background text-foreground">
+    <div className="container mx-auto p-4 sm:p-6 text-foreground">
       <div className="flex gap-4 items-start">
         <Image
           src="/logo.png"
