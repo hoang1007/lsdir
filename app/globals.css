@@ -160,3 +160,47 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Background wrapper */
+
+.app-bg {
+  position: relative;
+  min-height: 100vh;
+  display: block;
+  overflow: hidden;
+}
+
+/* image layer: separate element so we can detect/load and animate it */
+.app-bg__image {
+  position: absolute;
+  inset: 0;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0;
+  transition: opacity 350ms ease-in-out, transform 700ms ease;
+  transform: scale(1.02);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.app-bg__image.loaded {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* A subtle dark overlay so content is readable over the background */
+.app-bg__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7));
+  pointer-events: none;
+  z-index: 1;
+}
+
+.app-content {
+  position: relative; /* sits above the overlay */
+  z-index: 2;
+  background-color: transparent;
+}
+
