@@ -6,13 +6,10 @@ interface FileIconProps {
   mimeType: string;
   thumbnailLink?: string | null; // Thumbnail link is optional
   name: string; // Pass name for alt text (good for accessibility)
+  className?: string;
 }
 
-export default function FileIcon({
-  mimeType,
-  thumbnailLink,
-  name,
-}: FileIconProps) {
+export default function FileIcon({ mimeType, thumbnailLink, name, className = "" }: FileIconProps) {
   // Helper for emoji icons
   const getEmojiIcon = () => {
     if (mimeType.startsWith("image/")) return "🖼️";
@@ -34,8 +31,8 @@ export default function FileIcon({
   };
 
   return (
-    <div className="flex items-center justify-center mb-2">
-      <div className="h-32 w-32 flex items-center justify-center rounded-lg overflow-hidden">
+    <div className={`flex items-center justify-center ${className}`.trim()}>
+      <div className={`w-full h-full flex items-center justify-center rounded-lg overflow-hidden`}>
         {thumbnailLink ? (
           <Image
             src={thumbnailLink}
@@ -45,7 +42,7 @@ export default function FileIcon({
             className="object-cover w-full h-full bg-secondary"
           />
         ) : (
-          <div className="text-4xl">{getEmojiIcon()}</div>
+          <div className="text-current">{getEmojiIcon()}</div>
         )}
       </div>
     </div>

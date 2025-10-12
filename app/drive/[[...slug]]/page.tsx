@@ -1,6 +1,6 @@
 import { getFiles, getFolderPath } from "@/lib/google-drive";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import FileGrid from "@/components/FileGrid";
+import DriveViewer from "@/components/DriveViewer";
 import Image from "next/image";
 
 interface DrivePageProps {
@@ -38,7 +38,7 @@ export default async function DrivePage({ params }: DrivePageProps) {
 
       <Breadcrumbs path={path} />
 
-      <FileGrid files={files} currentPath={safeFolderId.join("/") || ""} />
+      <DriveViewer files={files} currentPath={safeFolderId.join("/") || ""} />
     </div>
   );
 }
