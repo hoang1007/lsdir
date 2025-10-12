@@ -4,13 +4,13 @@ import { NextResponse } from "next/server";
 import { drive } from "@/lib/google-drive";
 
 interface RouteContext {
-  params: {
+  params: Promise<{
     fileId: string;
-  };
+  }>;
 }
 
 export async function GET(request: Request, context: RouteContext) {
-  const { fileId } = context.params;
+  const { fileId } = await context.params;
 
   if (!fileId) {
     return new NextResponse("File ID is required", { status: 400 });
