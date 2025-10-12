@@ -17,7 +17,7 @@ export function ViewModeProvider({ children }: { children: React.ReactNode }) {
     } catch {
       // ignore
     }
-    return "grid";
+    return "list";
   });
 
   useEffect(() => {
